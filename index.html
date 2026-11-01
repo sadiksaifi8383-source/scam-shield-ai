@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Scam Shield AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05070d;--panel:#0a1020;--line:#0f3a4a;--tx:#e4f4f8;--mu:#7f9bab;--cy:#00f0ff;--gr:#39ff88;--hi:#ff3860;--me:#ffb020;--lo:#39ff88}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--tx);font-family:Inter,"Noto Sans Devanagari",system-ui,sans-serif;background:var(--bg)}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(600px 400px at 10% 0,#00f0ff22,transparent 70%),radial-gradient(700px 500px at 95% 15%,#39ff8820,transparent 70%),radial-gradient(500px 400px at 50% 110%,#7c3aed22,transparent 70%),linear-gradient(#ffffff06 1px,transparent 1px) 0 0/100% 38px,linear-gradient(90deg,#ffffff06 1px,transparent 1px) 0 0/38px 100%}
+h1,h2,h3,.orb{font-family:Orbitron,"Noto Sans Devanagari",sans-serif;letter-spacing:.04em}
+header{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:12px 5vw;background:#05070dd9;backdrop-filter:blur(10px);border-bottom:1px solid var(--line);box-shadow:0 0 24px #00f0ff14}
+.brand{display:flex;align-items:center;gap:10px;font:900 20px Orbitron,sans-serif;cursor:pointer}.brand svg{width:40px;height:40px;filter:drop-shadow(0 0 8px var(--cy))}.brand em{color:var(--cy);font-style:normal;text-shadow:0 0 12px var(--cy)}
+nav{display:flex;flex-wrap:wrap;gap:6px;flex:1}
+nav button{background:none;border:1px solid transparent;color:var(--mu);padding:9px 14px;border-radius:10px;cursor:pointer;font:500 14px inherit;font-family:inherit;transition:.2s}
+nav button:hover{color:var(--tx);border-color:var(--line)}nav button.on{color:var(--cy);border-color:var(--cy);box-shadow:0 0 14px #00f0ff44,inset 0 0 12px #00f0ff18}
+.lang{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}.lang button{background:none;border:0;color:var(--mu);padding:8px 12px;cursor:pointer;font-family:inherit}.lang button.on{background:var(--cy);color:#001417;font-weight:700}
+main{max-width:1150px;margin:0 auto;padding:28px 5vw 70px}section{display:none;animation:in .35s}section.on{display:block}@keyframes in{from{opacity:0;transform:translateY(8px)}}
+h2{font-size:clamp(22px,3.4vw,32px);margin:0 0 6px;color:var(--cy);text-shadow:0 0 16px #00f0ff66}.sub{color:var(--mu);margin:0 0 22px;line-height:1.6}
+.card{background:linear-gradient(160deg,#0b1428,#070c18);border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:20px;box-shadow:0 0 0 1px #00f0ff0d,0 10px 40px #00000066;transition:.25s}
+.card.hv:hover{transform:translateY(-4px);border-color:var(--cy);box-shadow:0 0 26px #00f0ff40,0 14px 40px #000a}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px}.grid.t{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.stat b{display:block;font:900 40px Orbitron,sans-serif;margin-top:6px}.stat span{color:var(--mu);font-size:14px}
+.s-hi b{color:var(--hi);text-shadow:0 0 14px var(--hi)}.s-me b{color:var(--me);text-shadow:0 0 14px var(--me)}.s-lo b{color:var(--lo);text-shadow:0 0 14px var(--lo)}.s-t b{color:var(--cy);text-shadow:0 0 14px var(--cy)}
+.bar{display:flex;align-items:center;gap:10px;margin:9px 0;font-size:14px}.bar i{display:block;height:8px;border-radius:6px;background:linear-gradient(90deg,var(--cy),var(--gr));box-shadow:0 0 10px var(--cy);min-width:3px;transition:width .5s}.bar span:first-child{width:80px;color:var(--mu)}
+input[type=text],textarea,select{width:100%;background:#050a16;color:var(--tx);border:1px solid var(--line);border-radius:12px;padding:14px;font:inherit;margin:8px 0;transition:.2s}
+textarea{min-height:170px;resize:vertical}input:focus,textarea:focus,select:focus{outline:0;border-color:var(--cy);box-shadow:0 0 16px #00f0ff44}
+.btn{font:700 14px Orbitron,"Noto Sans Devanagari",sans-serif;letter-spacing:.05em;padding:13px 22px;border-radius:12px;border:1px solid var(--cy);background:#00f0ff14;color:var(--cy);cursor:pointer;transition:.2s}
+.btn:hover{background:var(--cy);color:#001417;box-shadow:0 0 24px #00f0ff88}.btn:disabled{opacity:.5;cursor:wait}.btn.sm{padding:8px 14px;font-size:12px}.btn.red{border-color:var(--hi);color:var(--hi);background:#ff386014}.btn.red:hover{background:var(--hi);color:#fff;box-shadow:0 0 20px #ff386088}
+label.chk{display:flex;gap:8px;align-items:center;color:var(--mu);font-size:14px;margin:8px 0 16px}
+.up{display:block;border:2px dashed var(--line);border-radius:14px;padding:22px;text-align:center;color:var(--mu);cursor:pointer;transition:.2s;margin:10px 0}.up:hover{border-color:var(--gr);color:var(--gr);box-shadow:0 0 18px #39ff8833}.up input{display:none}
+.qrrow{display:flex;gap:12px;flex-wrap:wrap;align-items:stretch}.qrrow .up{flex:1 1 260px}.qrrow .btn{flex:0 0 auto;margin:10px 0}
+.cam{display:none;margin-top:12px}.cam.on{display:block}.cam video{width:100%;max-width:420px;border-radius:12px;border:1px solid var(--cy);box-shadow:0 0 18px #00f0ff44;background:#000}
+.badge{display:inline-block;padding:6px 14px;border-radius:30px;font:700 12px Orbitron,"Noto Sans Devanagari",sans-serif;letter-spacing:.06em;color:#000}
+.HIGH{background:var(--hi);box-shadow:0 0 16px var(--hi);color:#fff}.MEDIUM{background:var(--me);box-shadow:0 0 16px var(--me)}.LOW{background:var(--lo);box-shadow:0 0 16px var(--lo)}
+.res{display:none;margin-top:18px;padding:18px;border-radius:14px;background:#050a16;border:1px solid var(--line)}.res.show{display:block}.res ul{margin:8px 0;padding-left:20px;line-height:1.7}.res .mu,.mu{color:var(--mu);font-size:14px}.res .u{overflow-wrap:anywhere}
+.spin{display:none;width:18px;height:18px;margin-left:10px;vertical-align:middle;border:3px solid var(--line);border-top-color:var(--cy);border-radius:50%;animation:r 1s linear infinite}.spin.on{display:inline-block}@keyframes r{to{transform:rotate(360deg)}}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:640px}th{color:var(--cy);font:700 12px Orbitron,"Noto Sans Devanagari",sans-serif;text-align:left;padding:10px;border-bottom:1px solid var(--line)}td{padding:11px 10px;border-bottom:1px solid #0f2a38;font-size:14px;vertical-align:top}td.u{overflow-wrap:anywhere;max-width:340px}tr:hover td{background:#00f0ff08}
+.tip .ic{font-size:30px}.tip h3{margin:8px 0;font-size:16px;color:var(--gr)}.tip p{margin:0;color:var(--mu);line-height:1.6;font-size:14px}
+.pv{max-width:100%;max-height:260px;border-radius:12px;border:1px solid var(--line);margin-top:10px;display:none}
+#toast{position:fixed;right:18px;bottom:18px;z-index:50;display:flex;flex-direction:column;gap:8px}#toast div{background:#1a0a10;border:1px solid var(--hi);color:#ffd0d8;padding:12px 16px;border-radius:12px;box-shadow:0 0 20px #ff386055;max-width:320px;animation:in .3s}#toast div.ok{background:#07180f;border-color:var(--gr);color:#c8ffe0;box-shadow:0 0 20px #39ff8855}
+.blk{border:1px solid var(--hi);background:#2a0a12;border-radius:12px;padding:14px;margin:12px 0;box-shadow:0 0 18px #ff386055}.blk b{color:#ff8aa0;font-family:Orbitron,"Noto Sans Devanagari",sans-serif}.blk p{margin:8px 0 0}
+a.btn.wa{display:inline-block;margin-top:10px;text-decoration:none;border-color:var(--gr);color:var(--gr);background:#39ff8814}a.btn.wa:hover{background:var(--gr);color:#001417;box-shadow:0 0 24px #39ff8888}
+.frm>label{display:block;color:var(--mu);font-size:14px;margin-top:12px}.frm>label.chk{display:flex}
+@media(max-width:700px){header{padding:10px 4vw}nav button{padding:8px 10px;font-size:13px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand" onclick="show('home')"><svg viewBox="0 0 64 64" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M32 4 54 12v18c0 14-10 24-22 30C20 54 10 44 10 30V12z" stroke="#00f0ff" stroke-width="4"/><rect x="21" y="29" width="22" height="17" rx="4" stroke="#39ff88" stroke-width="3.5"/><path d="M26 29v-5a6 6 0 0 1 12 0v5" stroke="#39ff88" stroke-width="3.5"/><circle cx="32" cy="37" r="2.4" fill="#39ff88" stroke="none"/></svg><span>Scam Shield <em>AI</em></span></div>
+ <nav id="nav"></nav>
+ <div class="lang"><button data-l="en" class="on">EN</button><button data-l="hi">हिन्दी</button></div>
+</header>
+<main>
+<section id="home">
+ <div class="card" style="text-align:center;padding:40px 20px;background:linear-gradient(160deg,#0b1428,#050a16);border:1px solid var(--cy);box-shadow:0 0 30px #00f0ff22">
+  <h2 style="font-size:clamp(26px,4vw,40px);margin-bottom:14px" data-i="home_title"></h2>
+  <p class="sub" style="max-width:700px;margin:0 auto 24px" data-i="home_sub"></p>
+  <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:10px">
+   <button class="btn" onclick="show('scan')" data-i="btn_start_scan"></button>
+   <button class="btn" style="border-color:var(--gr);color:var(--gr);background:#39ff8814" onclick="show('tips')" data-i="btn_learn_tips"></button>
+  </div>
+ </div>
+ <br>
+ <div class="grid t">
+  <div class="card hv"><h3 style="color:var(--cy);margin-bottom:8px" data-i="feat_1_title"></h3><p class="mu" style="margin:0;line-height:1.6" data-i="feat_1_desc"></p></div>
+  <div class="card hv"><h3 style="color:var(--cy);margin-bottom:8px" data-i="feat_2_title"></h3><p class="mu" style="margin:0;line-height:1.6" data-i="feat_2_desc"></p></div>
+  <div class="card hv"><h3 style="color:var(--cy);margin-bottom:8px" data-i="feat_3_title"></h3><p class="mu" style="margin:0;line-height:1.6" data-i="feat_3_desc"></p></div>
+ </div>
+</section>
+
+<section id="dash">
+ <h2 data-i="d_title"></h2><p class="sub" data-i="d_sub"></p>
+ <div class="grid" id="dStats"></div><br>
+ <div class="grid t">
+  <div class="card"><h3 data-i="bytype"></h3><div id="dBars"></div></div>
+  <div class="card"><h3 data-i="status"></h3><div id="dStatus"></div><h3 style="margin-top:20px" data-i="tip_now"></h3><div id="dTip" class="mu"></div></div>
+ </div>
+</section>
+
+<section id="scan">
+ <h2 data-i="s_title"></h2><p class="sub" data-i="s_desc"></p>
+ <div class="card">
+  <input type="text" id="urlIn" data-p="ph_url" autocomplete="off">
+  <button class="btn" id="urlBtn" data-i="btn_link"></button><span class="spin" id="urlSp"></span>
+  <div class="qrrow"><label class="up"><input type="file" id="qrIn" accept="image/*"><span data-i="qr_up"></span></label><button class="btn" id="camBtn" type="button" data-i="btn_cam"></button></div><span class="spin" id="qrSp"></span>
+  <div class="cam" id="camBox"><video id="camV" playsinline muted></video><p class="mu" id="camMsg"></p><button class="btn sm red" id="camStop" type="button" data-i="cam_stop"></button></div>
+  <canvas id="cv" hidden></canvas><div class="res" id="urlRes"></div>
+ </div>
+</section>
+
+<section id="msg">
+ <h2 data-i="m_title"></h2><p class="sub" data-i="m_desc"></p>
+ <div class="card">
+  <select id="msgType"><option value="sms" data-i="t_sms"></option><option value="message" data-i="t_message"></option><option value="email" data-i="t_email"></option></select>
+  <textarea id="msgIn" data-p="ph_msg"></textarea>
+  <label class="chk"><input type="checkbox" id="msgSave"><span data-i="save"></span></label>
+  <button class="btn" id="msgBtn" data-i="btn_an"></button><span class="spin" id="msgSp"></span>
+  <div class="res" id="msgRes"></div>
+ </div>
+</section>
+
+<section id="img">
+ <h2 data-i="i_title"></h2><p class="sub" data-i="i_desc"></p>
+ <div class="card">
+  <div class="qrrow"><label class="up"><input type="file" id="imgIn" accept="image/*"><span data-i="i_drop"></span></label><button class="btn" id="imgScanBtn" type="button" data-i="btn_scan_img"></button></div>
+  <img class="pv" id="pv" alt=""><p class="mu" id="imgInfo"></p><span class="spin" id="imgSp"></span>
+  <div class="res" id="imgRes"></div>
+ </div>
+</section>
+
+<section id="hist">
+ <h2 data-i="h_title"></h2><p class="sub" data-i="h_sub"></p>
+ <div class="card"><p><button class="btn sm" id="hRef" data-i="refresh"></button> <button class="btn sm red" id="hAll" data-i="clear"></button></p>
+ <div class="tw"><table><thead><tr><th data-i="th_time"></th><th data-i="th_type"></th><th data-i="th_sub"></th><th data-i="th_risk"></th><th data-i="th_act"></th></tr></thead><tbody id="hBody"></tbody></table></div></div>
+</section>
+
+<section id="care">
+ <h2 data-i="c_title"></h2><p class="sub" data-i="c_sub"></p>
+ <div class="card frm">
+  <label class="chk"><input type="checkbox" id="cEnabled"><span data-i="c_enable"></span></label>
+  <label><span data-i="c_user"></span><input type="text" id="cUser" maxlength="60" autocomplete="off"></label>
+  <label><span data-i="c_name"></span><input type="text" id="cName" maxlength="60" autocomplete="off"></label>
+  <label><span data-i="c_phone"></span><input type="text" id="cPhone" placeholder="+919876543210" maxlength="20" autocomplete="off"></label>
+  <label><span data-i="c_lang"></span><select id="cLang"><option value="en">English</option><option value="hi">हिन्दी</option></select></label>
+  <label><span data-i="c_mode"></span><select id="cProv"><option value="link" data-i="c_m_link"></option><option value="callmebot" data-i="c_m_cmb"></option><option value="twilio" data-i="c_m_tw"></option></select></label>
+  <div id="cKeyBox" style="display:none"><label><span data-i="c_key"></span><input type="text" id="cKey" autocomplete="off"></label><p class="mu" data-i="c_key_help"></p></div>
+  <label class="chk"><input type="checkbox" id="cConsent"><span data-i="c_consent"></span></label>
+  <button class="btn" id="cSave" type="button" data-i="c_save"></button> <button class="btn sm" id="cTest" type="button" data-i="c_test"></button>
+  <div class="res" id="cRes"></div>
+ </div>
+ <div class="card"><h3 data-i="c_log"></h3><p><button class="btn sm" id="aRef" type="button" data-i="refresh"></button></p>
+ <div class="tw"><table><thead><tr><th data-i="th_time"></th><th data-i="th_type"></th><th data-i="c_th_status"></th><th data-i="c_th_detail"></th></tr></thead><tbody id="aBody"></tbody></table></div></div>
+</section>
+
+<section id="tips">
+ <h2 data-i="k_title"></h2><p class="sub" data-i="k_sub"></p>
+ <div class="grid t" id="tipGrid"></div>
+</section>
+</main>
+<div id="toast"></div>
+<script>
+const $=s=>document.querySelector(s);
+const API=location.port==="5002"?"":"http://127.0.0.1:5002";
+const I18N={
+en:{n_home:"Home",n_dash:"Dashboard",n_scan:"URL & QR Scanner",n_msg:"Message Scanner",n_img:"Screenshot Inspector",n_hist:"Scan History",n_tips:"Safety Tips",
+home_title:"Protect Yourself from Digital Fraud",home_sub:"AI-powered real-time scam detection for URLs, QR codes, messages, and emails.",btn_start_scan:"Start Scanning Now",btn_learn_tips:"Explore Safety Tips",
+feat_1_title:"Instant Link & QR Check",feat_1_desc:"Detect malicious phishing websites and dangerous QR codes instantly.",
+feat_2_title:"Smart Message Analyzer",feat_2_desc:"Identify SMS, WhatsApp, and email scams using advanced heuristic pattern checks.",
+feat_3_title:"Bank & UPI Fraud Shield",feat_3_desc:"Spot fake KYC demands, fake lottery rewards, and urgent OTP pressure.",
+d_title:"Security Overview",d_sub:"Live statistics from your scan history",total:"Total Scans",high:"High Risk",med:"Medium Risk",low:"Low Risk",bytype:"Scans by Type",status:"System Status",tip_now:"Tip of the moment",
+srv_ok:"Backend online",sb_on:"Google Safe Browsing: connected",sb_off:"Google Safe Browsing: key not set (pattern checks only)",gm:"Gmail: not connected (pasted-email analysis only)",
+s_title:"URL & QR Code Scanner",s_desc:"Check a link against Google Safe Browsing (when a key is set) and scam-pattern rules, or upload a QR code image.",ph_url:"Paste a link, e.g. https://example.com",btn_link:"SCAN LINK",qr_up:"Or click to upload a QR code image",
+btn_cam:"Scan QR with Camera",cam_stop:"Stop camera",cam_hint:"Point the camera at a QR code and hold steady.",btn_scan_img:"SCAN IMAGE",
+err_cam_denied:"Camera permission was blocked. Click the lock icon in the address bar, allow Camera, and try again.",err_cam_none:"No camera was found on this device.",err_cam_busy:"The camera is being used by another app. Close it and try again.",err_cam_unsupported:"This browser cannot use the camera here. Open http://127.0.0.1:5002 in Chrome or Edge.",err_cam_other:"Could not start the camera.",
+err_no_img:"Please choose an image first.",err_no_route:"The backend has no /decode-qr. Replace app.py with the new version and restart it (python app.py).",err_no_decoder:"QR decoder is not installed. Run: python -m pip install opencv-python-headless, then restart app.py.",
+type_screenshot:"Screenshot",f_trading:"Investment / trading-profit scam wording",f_test_high_risk:"Local test marker (not a real link)",i_extracted:"Text read from the image",err_ocr_missing:"Text reading needs pytesseract. Run: python -m pip install pytesseract pillow, then restart app.py.",err_ocr_no_engine:"Tesseract OCR is not installed. Install it (see instructions), then restart app.py.",err_ocr_failed:"Could not read text from this image.",err_no_content:"No readable text or QR code found. Try a clearer screenshot.",err_bad_image:"This file is not a readable image.",err_too_big:"This image is too large (max 12 MB).",err_no_inspect:"The backend has no /inspect-image. Replace app.py with the new version and restart it (python app.py).",n_care:"Caretaker Alert",c_title:"Caretaker Alert (WhatsApp)",c_sub:"When a scan is HIGH RISK, the link is blocked here and your caretaker gets a WhatsApp message with the reasons.",c_enable:"Turn on caretaker alerts",c_user:"Name of the protected person (e.g. Dadaji)",c_name:"Caretaker name",c_phone:"Caretaker WhatsApp number with country code",c_lang:"Language of the alert message",c_mode:"How to send",c_m_link:"WhatsApp link (one tap to send, no setup)",c_m_cmb:"Automatic with CallMeBot (free, caretaker activates once)",c_m_tw:"Automatic with Twilio (needs a Twilio account on the server)",c_key:"CallMeBot API key (the caretaker receives it on WhatsApp)",c_key_help:"The caretaker saves the CallMeBot WhatsApp number shown on callmebot.com, sends it the message \"I allow callmebot to send me messages\", and gets an API key back.",c_consent:"The protected person agrees that their caretaker is told when a HIGH RISK scam is found. The alert has the reasons and a disabled link, never OTPs or the full message.",c_save:"SAVE",c_test:"SEND TEST ALERT",c_log:"Recent alerts",c_saved:"Saved",c_th_status:"STATUS",c_th_detail:"DETAIL",blk_title:"BLOCKED for your safety",blk_text:"Do NOT open this link, do not call back, and never share an OTP, PIN or password. Ask your caretaker, or call 1930.",wa_send:"Send WhatsApp alert to caretaker",al_sending:"The alert is being sent to your caretaker on WhatsApp.",al_recent:"Your caretaker was already alerted about this link a few minutes ago.",al_off:"Caretaker alerts are off. Turn them on in the Caretaker Alert tab.",al_needs_tap:"Test message is ready. Tap the button to send it.",al_not_configured:"First add the caretaker number, tick the consent box, turn alerts on and save.",open_link:"Open link",open_warn:"This link looks suspicious. Open it anyway?",as_needs_tap:"Waiting for tap",as_sending:"Sending",as_sent:"Sent",as_failed:"Failed",as_skipped:"Skipped",err_bad_phone:"Enter the number with country code, like +919876543210.",err_consent_required:"Please tick the consent box to turn alerts on.",err_need_apikey:"Enter the CallMeBot API key.",err_bad_apikey:"The API key has only letters and numbers.",err_bad_provider:"Choose how to send.",err_twilio_not_configured:"Twilio is not set up on the server (see instructions).",v_safe:"SAFE",v_suspicious:"SUSPICIOUS",v_malicious:"MALICIOUS",v_unverified:"NOT VERIFIED",v_note_unverified:"Google Safe Browsing could not be used for this scan, so only pattern checks ran. Do not treat this link as safe.",
+m_title:"Message / SMS / Email Scanner",m_desc:"Paste suspicious text. This is rule-based heuristic analysis, not a trained AI model.",ph_msg:"Paste the SMS, WhatsApp message or email here (include the From: line for emails)...",t_sms:"SMS",t_message:"WhatsApp / Other message",t_email:"Email",save:"Save the text in history (off by default for privacy)",btn_an:"ANALYZE",
+i_title:"Screenshot / Image Inspector",i_desc:"Upload a screenshot or photo. We look for a QR code inside it and scan the link. We also read the text in it (OCR) and check it for scam patterns.",i_drop:"Click to choose an image",i_none:"No QR code or readable text found in this image.",i_info:"File",
+h_title:"Recent Scan History",h_sub:"Stored in scam_shield.db and kept after restart",refresh:"REFRESH",clear:"CLEAR ALL",th_time:"TIME",th_type:"TYPE",th_sub:"SCANNED ITEM",th_risk:"RISK",th_act:"ACTION",del:"Delete",empty:"No scans yet.",confirm_all:"Delete ALL history? This cannot be undone.",
+k_title:"Essential Safety Tips",k_sub:"Simple habits that stop most scams",
+type_url:"URL",type_qr:"QR",type_sms:"SMS",type_message:"Message",type_email:"Email",
+R_HIGH:"HIGH RISK",R_MEDIUM:"MEDIUM RISK",R_LOW:"LOW RISK",
+st_confirmed_threat:"Confirmed threat match",st_heuristic_warning:"Heuristic warning",st_no_known_threat:"No known threat found",
+dc_confirmed_threat:"Confirmed match in Google Safe Browsing's threat list. Do not open this link.",dc_heuristic_warning:"Heuristic warning: rule-based pattern checks, not a confirmed threat and not a trained AI model. Verify through official channels.",dc_no_known_threat:"No known threat found. This does NOT guarantee safety, so stay careful.",
+why:"Why this result",score:"Score",links:"Links checked",scanning:"Scanning…",email_note:"Pasted-email analysis only. No Gmail account is connected.",saved:"Scan saved to history",deleted:"Deleted",cleared:"History cleared",
+err_net:"Cannot reach the server. Is app.py running on port 5002?",err_empty_url:"Please enter a link.",err_bad_url:"Please enter a valid http/https link.",err_empty_text:"Please paste some text to analyze.",err_short_text:"The text is too short to analyze.",err_not_found:"Record not found.",err_server:"Internal server error.",
+err_qr_lib:"QR library could not load. Check your internet connection.",err_qr_none:"No QR code found. Try a clearer image.",err_qr_text:"QR decoded, but it is not a web link:",err_img:"This file is not a readable image.",
+f_otp:"Asks for OTP / PIN / password / CVV",f_urgency:"Creates urgency or time pressure",f_threat:"Threatens account blocking, legal action or arrest",f_reward:"Fake reward / lottery / prize language",f_payment:"Suspicious payment or fee request",f_kyc:"KYC / PAN / Aadhaar update pressure (common scam theme)",f_brand:"Mentions a bank, government body or brand. Verify only via its official app or website",f_click:"Pushes you to click a link or verify details",f_remote:"Asks to install an app or remote-access tool",f_job:"Too-good-to-be-true job or investment offer",
+f_link:"Link found:",f_u_http:"Uses unencrypted HTTP instead of HTTPS",f_u_ip:"Uses a raw IP address instead of a domain name",f_u_at:"Contains '@' which can hide the real destination",f_u_puny:"Punycode domain (can imitate look-alike characters)",f_u_short:"URL shortener hides the final destination",f_u_tld:"Domain ending often abused in scams",f_u_sub:"Unusually many subdomains",f_u_long:"Very long URL",f_u_kw:"Sensitive words in URL:",f_u_brand:"Brand name mixed with hyphens in the domain (possible impersonation):",
+f_sb_hit:"Google Safe Browsing lists this as malware / phishing / unwanted software",f_sb_clean:"Google Safe Browsing: no known threat match",f_sb_off:"Safe Browsing key not configured, so only pattern checks ran",f_sb_err:"Could not reach Google Safe Browsing; only pattern checks ran",f_none:"No suspicious patterns matched our rules",
+f_e_spoof:"Sender name and address domain do not match (possible fake sender):",f_e_attach:"Mentions a risky attachment type (.exe, .zip, .html, .apk …)",f_e_generic:"Generic greeting instead of your name"},
+hi:{n_home:"होम",n_dash:"डैशबोर्ड",n_scan:"URL और QR स्कैनर",n_msg:"संदेश स्कैनर",n_img:"स्क्रीनशॉट जाँच",n_hist:"स्कैन इतिहास",n_tips:"सुरक्षा सुझाव",
+home_title:"डिजिटल धोखाधड़ी से अपनी रक्षा करें",home_sub:"URL, QR कोड, संदेशों और ईमेल के लिए AI-संचालित वास्तविक समय ठगी पहचान।",btn_start_scan:"अभी स्कैन करना शुरू करें",btn_learn_tips:"सुरक्षा सुझाव देखें",
+feat_1_title:"त्वरित लिंक और QR जाँच",feat_1_desc:"खतरनाक फ़िशिंग वेबसाइटों और खतरनाक QR कोड का तुरंत पता लगाएँ।",
+feat_2_title:"स्मार्ट संदेश विश्लेषक",feat_2_desc:"उन्नत नियम-आधारित पैटर्न जाँच का उपयोग करके SMS, व्हाट्सऐप और ईमेल घोटालों की पहचान करें।",
+feat_3_title:"बैंक और UPI धोखाधड़ी सुरक्षा",feat_3_desc:"नकली KYC माँगों, फर्जी लॉटरी पुरस्कारों और जरूरी OTP दबाव को पहचानें।",
+d_title:"सुरक्षा अवलोकन",d_sub:"आपके स्कैन इतिहास के लाइव आँकड़े",total:"कुल स्कैन",high:"उच्च जोखिम",med:"मध्यम जोखिम",low:"कम जोखिम",bytype:"प्रकार के अनुसार स्कैन",status:"सिस्टम स्थिति",tip_now:"अभी का सुझाव",
+srv_ok:"बैकएंड चालू है",sb_on:"Google Safe Browsing: जुड़ा हुआ",sb_off:"Google Safe Browsing: कुंजी सेट नहीं (केवल पैटर्न जाँच)",gm:"Gmail: जुड़ा नहीं है (केवल पेस्ट किए ईमेल का विश्लेषण)",
+s_title:"URL और QR कोड स्कैनर",s_desc:"लिंक को Google Safe Browsing (कुंजी होने पर) और ठगी-पैटर्न नियमों से जाँचें, या QR कोड की तस्वीर अपलोड करें।",ph_url:"लिंक पेस्ट करें, जैसे https://example.com",btn_link:"लिंक स्कैन करें",qr_up:"या QR कोड की तस्वीर अपलोड करने के लिए क्लिक करें",
+btn_cam:"कैमरे से QR स्कैन करें",cam_stop:"कैमरा बंद करें",cam_hint:"कैमरे को QR कोड पर रखें और स्थिर पकड़ें।",btn_scan_img:"इमेज स्कैन करें",
+err_cam_denied:"कैमरे की अनुमति रोकी गई है। एड्रेस बार के लॉक आइकन पर क्लिक करके कैमरा अनुमति दें और फिर कोशिश करें।",err_cam_none:"इस डिवाइस पर कोई कैमरा नहीं मिला।",err_cam_busy:"कैमरा किसी दूसरे ऐप में उपयोग हो रहा है। उसे बंद करके फिर कोशिश करें।",err_cam_unsupported:"यह ब्राउज़र यहाँ कैमरा उपयोग नहीं कर सकता। Chrome या Edge में http://127.0.0.1:5002 खोलें।",err_cam_other:"कैमरा शुरू नहीं हो सका।",
+err_no_img:"कृपया पहले एक तस्वीर चुनें।",err_no_route:"बैकएंड में /decode-qr नहीं है। app.py को नए संस्करण से बदलें और दोबारा चलाएँ (python app.py)।",err_no_decoder:"QR डिकोडर इंस्टॉल नहीं है। चलाएँ: python -m pip install opencv-python-headless, फिर app.py दोबारा चलाएँ।",
+type_screenshot:"स्क्रीनशॉट",f_trading:"निवेश / ट्रेडिंग मुनाफ़े की ठगी जैसी भाषा",f_test_high_risk:"स्थानीय परीक्षण चिह्न (असली लिंक नहीं)",i_extracted:"तस्वीर से पढ़ा गया टेक्स्ट",err_ocr_missing:"टेक्स्ट पढ़ने के लिए pytesseract चाहिए। चलाएँ: python -m pip install pytesseract pillow, फिर app.py दोबारा चलाएँ।",err_ocr_no_engine:"Tesseract OCR इंस्टॉल नहीं है। इसे इंस्टॉल करें, फिर app.py दोबारा चलाएँ।",err_ocr_failed:"इस तस्वीर से टेक्स्ट नहीं पढ़ा जा सका।",err_no_content:"कोई पढ़ने योग्य टेक्स्ट या QR कोड नहीं मिला। साफ़ स्क्रीनशॉट आज़माएँ।",err_bad_image:"यह फ़ाइल पढ़ने योग्य तस्वीर नहीं है।",err_too_big:"यह तस्वीर बहुत बड़ी है (अधिकतम 12 MB)।",err_no_inspect:"बैकएंड में /inspect-image नहीं है। app.py को नए संस्करण से बदलें और दोबारा चलाएँ (python app.py)।",n_care:"देखभालकर्ता अलर्ट",c_title:"देखभालकर्ता अलर्ट (WhatsApp)",c_sub:"जब कोई स्कैन उच्च जोखिम का हो, तो लिंक यहाँ ब्लॉक हो जाता है और आपके देखभालकर्ता को कारणों के साथ WhatsApp संदेश जाता है।",c_enable:"देखभालकर्ता अलर्ट चालू करें",c_user:"सुरक्षित व्यक्ति का नाम (जैसे दादाजी)",c_name:"देखभालकर्ता का नाम",c_phone:"देखभालकर्ता का WhatsApp नंबर (देश कोड के साथ)",c_lang:"अलर्ट संदेश की भाषा",c_mode:"कैसे भेजें",c_m_link:"WhatsApp लिंक (एक टैप से भेजें, कोई सेटअप नहीं)",c_m_cmb:"CallMeBot से अपने-आप (मुफ़्त, देखभालकर्ता एक बार सक्रिय करे)",c_m_tw:"Twilio से अपने-आप (सर्वर पर Twilio खाता चाहिए)",c_key:"CallMeBot API कुंजी (देखभालकर्ता को WhatsApp पर मिलती है)",c_key_help:"देखभालकर्ता callmebot.com पर दिया CallMeBot का WhatsApp नंबर सेव करके उसे \"I allow callmebot to send me messages\" भेजे, और बदले में API कुंजी पाए।",c_consent:"सुरक्षित व्यक्ति सहमत है कि उच्च जोखिम की ठगी मिलने पर उसके देखभालकर्ता को बताया जाए। अलर्ट में कारण और बंद किया हुआ लिंक होता है, OTP या पूरा संदेश कभी नहीं।",c_save:"सहेजें",c_test:"टेस्ट अलर्ट भेजें",c_log:"हाल के अलर्ट",c_saved:"सहेजा गया",c_th_status:"स्थिति",c_th_detail:"विवरण",blk_title:"आपकी सुरक्षा के लिए ब्लॉक किया गया",blk_text:"यह लिंक न खोलें, वापस कॉल न करें, और OTP, PIN या पासवर्ड कभी न बताएँ। अपने देखभालकर्ता से पूछें, या 1930 पर कॉल करें।",wa_send:"देखभालकर्ता को WhatsApp अलर्ट भेजें",al_sending:"आपके देखभालकर्ता को WhatsApp पर अलर्ट भेजा जा रहा है।",al_recent:"इस लिंक के बारे में देखभालकर्ता को कुछ मिनट पहले ही बताया जा चुका है।",al_off:"देखभालकर्ता अलर्ट बंद हैं। इन्हें देखभालकर्ता अलर्ट टैब में चालू करें।",al_needs_tap:"टेस्ट संदेश तैयार है। भेजने के लिए बटन दबाएँ।",al_not_configured:"पहले देखभालकर्ता का नंबर भरें, सहमति पर टिक करें, अलर्ट चालू करें और सहेजें।",open_link:"लिंक खोलें",open_warn:"यह लिंक संदिग्ध लगता है। फिर भी खोलें?",as_needs_tap:"टैप का इंतज़ार",as_sending:"भेजा जा रहा है",as_sent:"भेज दिया",as_failed:"विफल",as_skipped:"छोड़ा गया",err_bad_phone:"देश कोड के साथ नंबर लिखें, जैसे +919876543210।",err_consent_required:"अलर्ट चालू करने के लिए सहमति पर टिक करें।",err_need_apikey:"CallMeBot API कुंजी भरें।",err_bad_apikey:"API कुंजी में केवल अक्षर और अंक होते हैं।",err_bad_provider:"भेजने का तरीका चुनें।",err_twilio_not_configured:"सर्वर पर Twilio सेट नहीं है (निर्देश देखें)।",v_safe:"सुरक्षित",v_suspicious:"संदिग्ध",v_malicious:"खतरनाक",v_unverified:"सत्यापित नहीं",v_note_unverified:"इस स्कैन के लिए Google Safe Browsing उपयोग नहीं हो सका, इसलिए केवल पैटर्न जाँच हुई। इस लिंक को सुरक्षित न मानें।",
+m_title:"संदेश / SMS / ईमेल स्कैनर",m_desc:"संदिग्ध टेक्स्ट पेस्ट करें। यह नियम-आधारित जाँच है, प्रशिक्षित AI मॉडल नहीं।",ph_msg:"SMS, व्हाट्सऐप संदेश या ईमेल यहाँ पेस्ट करें (ईमेल के लिए From: लाइन भी डालें)...",t_sms:"SMS",t_message:"व्हाट्सऐप / अन्य संदेश",t_email:"ईमेल",save:"टेक्स्ट इतिहास में सहेजें (गोपनीयता के लिए डिफ़ॉल्ट रूप से बंद)",btn_an:"विश्लेषण करें",
+i_title:"स्क्रीनशॉट / इमेज जाँच",i_desc:"स्क्रीनशॉट या फोटो अपलोड करें। हम उसमें QR कोड ढूँढकर लिंक स्कैन करते हैं। हम उसमें लिखा टेक्स्ट भी पढ़ते हैं (OCR) और ठगी के पैटर्न जाँचते हैं।",i_drop:"तस्वीर चुनने के लिए क्लिक करें",i_none:"इस तस्वीर में कोई QR कोड नहीं मिला। विश्लेषण के लिए दिखने वाला टेक्स्ट संदेश स्कैनर में पेस्ट करें।",i_info:"फ़ाइल",
+h_title:"हाल का स्कैन इतिहास",h_sub:"scam_shield.db में सहेजा गया, रीस्टार्ट के बाद भी बना रहता है",refresh:"रिफ्रेश",clear:"सब हटाएँ",th_time:"समय",th_type:"प्रकार",th_sub:"स्कैन की गई चीज़",th_risk:"जोखिम",th_act:"कार्रवाई",del:"हटाएँ",empty:"अभी कोई स्कैन नहीं।",confirm_all:"पूरा इतिहास हटाएँ? यह वापस नहीं हो सकता।",
+k_title:"ज़रूरी सुरक्षा सुझाव",k_sub:"सरल आदतें जो ज़्यादातर ठगी रोक देती हैं",
+type_url:"URL",type_qr:"QR",type_sms:"SMS",type_message:"संदेश",type_email:"ईमेल",
+R_HIGH:"उच्च जोखिम",R_MEDIUM:"मध्यम जोखिम",R_LOW:"कम जोखिम",
+st_confirmed_threat:"पुष्ट खतरा मिला",st_heuristic_warning:"अनुमान-आधारित चेतावनी",st_no_known_threat:"कोई ज्ञात खतरा नहीं मिला",
+dc_confirmed_threat:"Google Safe Browsing की खतरा-सूची में पुष्ट मेल मिला। इस लिंक को न खोलें।",dc_heuristic_warning:"अनुमान-आधारित चेतावनी: यह नियम-आधारित पैटर्न जाँच है, पुष्ट खतरा या प्रशिक्षित AI मॉडल नहीं। आधिकारिक माध्यम से सत्यापित करें।",dc_no_known_threat:"कोई ज्ञात खतरा नहीं मिला। इसका मतलब सुरक्षित होने की गारंटी नहीं है, सावधान रहें।",
+why:"यह परिणाम क्यों",score:"स्कोर",links:"जाँचे गए लिंक",scanning:"स्कैन हो रहा है…",email_note:"केवल पेस्ट किए गए ईमेल का विश्लेषण। कोई Gmail खाता जुड़ा नहीं है।",saved:"स्कैन इतिहास में सहेजा गया",deleted:"हटा दिया गया",cleared:"इतिहास साफ़ हो गया",
+err_net:"सर्वर से संपर्क नहीं हो सका। क्या app.py पोर्ट 5002 पर चल रहा है?",err_empty_url:"कृपया लिंक दर्ज करें।",err_bad_url:"कृपया सही http/https लिंक दर्ज करें।",err_empty_text:"कृपया विश्लेषण के लिए टेक्स्ट पेस्ट करें।",err_short_text:"विश्लेषण के लिए टेक्स्ट बहुत छोटा है।",err_not_found:"रिकॉर्ड नहीं मिला।",err_server:"सर्वर में आंतरिक त्रुटि।",
+err_qr_lib:"QR लाइब्रेरी लोड नहीं हुई। इंटरनेट कनेक्शन जाँचें।",err_qr_none:"कोई QR कोड नहीं मिला। साफ़ तस्वीर आज़माएँ।",err_qr_text:"QR पढ़ा गया, लेकिन यह वेब लिंक नहीं है:",err_img:"यह फ़ाइल पढ़ने योग्य तस्वीर नहीं है।",
+f_otp:"OTP / PIN / पासवर्ड / CVV माँगा जा रहा है",f_urgency:"जल्दबाज़ी या समय का दबाव बनाया गया है",f_threat:"खाता बंद करने, कानूनी कार्रवाई या गिरफ्तारी की धमकी",f_reward:"नकली इनाम / लॉटरी / पुरस्कार की भाषा",f_payment:"संदिग्ध भुगतान या शुल्क की माँग",f_kyc:"KYC / PAN / आधार अपडेट का दबाव (आम ठगी का तरीका)",f_brand:"बैंक, सरकारी संस्था या ब्रांड का नाम लिया गया है। केवल उसके आधिकारिक ऐप या वेबसाइट से सत्यापित करें",f_click:"लिंक पर क्लिक करने या जानकारी सत्यापित करने का दबाव",f_remote:"ऐप या रिमोट-एक्सेस टूल इंस्टॉल करने को कहा गया",f_job:"बहुत अच्छा लगने वाला नौकरी या निवेश का ऑफ़र",
+f_link:"लिंक मिला:",f_u_http:"HTTPS की जगह असुरक्षित HTTP का उपयोग",f_u_ip:"डोमेन नाम की जगह सीधा IP पता",f_u_at:"'@' मौजूद है जो असली गंतव्य छिपा सकता है",f_u_puny:"Punycode डोमेन (मिलते-जुलते अक्षरों की नकल कर सकता है)",f_u_short:"URL शॉर्टनर असली गंतव्य छिपाता है",f_u_tld:"ऐसा डोमेन अंत जिसका ठगी में अक्सर दुरुपयोग होता है",f_u_sub:"असामान्य रूप से अधिक सबडोमेन",f_u_long:"बहुत लंबा URL",f_u_kw:"URL में संवेदनशील शब्द:",f_u_brand:"डोमेन में ब्रांड का नाम हाइफ़न के साथ (नकल की आशंका):",
+f_sb_hit:"Google Safe Browsing इसे मैलवेयर / फ़िशिंग / अवांछित सॉफ़्टवेयर बताता है",f_sb_clean:"Google Safe Browsing: कोई ज्ञात खतरा नहीं मिला",f_sb_off:"Safe Browsing कुंजी सेट नहीं है, इसलिए केवल पैटर्न जाँच हुई",f_sb_err:"Google Safe Browsing से संपर्क नहीं हो सका; केवल पैटर्न जाँच हुई",f_none:"हमारे नियमों में कोई संदिग्ध पैटर्न नहीं मिला",
+f_e_spoof:"प्रेषक का नाम और पता-डोमेन मेल नहीं खाते (नकली प्रेषक की आशंका):",f_e_attach:"जोखिम भरे अटैचमेंट प्रकार का उल्लेख (.exe, .zip, .html, .apk …)",f_e_generic:"आपके नाम की जगह सामान्य अभिवादन"}
+};
+let lang=localStorage.getItem("ss_lang")||"en";
+const t=k=>(I18N[lang]&&I18N[lang][k])||I18N.en[k]||k;
+const el=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e};
+const shown={};let tipsData=[],dashData=null,histData=[],healthData=null;
+
+function toast(msg,ok){const d=el("div",ok?"ok":"",msg);$("#toast").append(d);setTimeout(()=>d.remove(),4500)}
+function errMsg(e){return e.code&&I18N.en["err_"+e.code]?t("err_"+e.code):(e.message||t("err_net"))}
+async function api(path,opt={}){
+ let r;try{r=await fetch(API+path,{headers:{"Content-Type":"application/json"},...opt})}catch(_){const x=new Error(t("err_net"));x.code="net";throw x}
+ let d={};try{d=await r.json()}catch(_){}
+ if(!r.ok){const x=new Error(d.error||("HTTP "+r.status));x.code=d.code;throw x}
+ return d}
+
+/* ---------- navigation & language ---------- */
+const TABS=[["home","n_home"],["dash","n_dash"],["scan","n_scan"],["msg","n_msg"],["img","n_img"],["hist","n_hist"],["care","n_care"],["tips","n_tips"]];
+TABS.forEach(([id,k])=>{const b=el("button");b.dataset.t=id;b.dataset.k=k;b.onclick=()=>show(id);$("#nav").append(b)});
+function show(id){
+ document.querySelectorAll("main section").forEach(s=>s.classList.toggle("on",s.id===id));
+ document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===id));
+ if(id!=="scan")stopCam();
+ if(id==="care")loadCare();if(id==="dash")loadDash();if(id==="hist")loadHist();if(id==="tips"&&!tipsData.length)loadTips();scrollTo(0,0)}
+function applyLang(){
+ document.documentElement.lang=lang;
+ document.querySelectorAll("[data-i]").forEach(e=>e.textContent=t(e.dataset.i));
+ document.querySelectorAll("[data-p]").forEach(e=>e.placeholder=t(e.dataset.p));
+ document.querySelectorAll("#nav button").forEach(b=>b.textContent=t(b.dataset.k));
+ document.querySelectorAll(".lang button").forEach(b=>b.classList.toggle("on",b.dataset.l===lang));
+ renderDash();renderHist();renderTips();Object.keys(shown).forEach(id=>shown[id]&&renderResult(id,shown[id]));
+ if(lastImg)$("#imgInfo").textContent=t("i_info")+": "+lastImg}
+document.querySelectorAll(".lang button").forEach(b=>b.onclick=()=>{lang=b.dataset.l;localStorage.setItem("ss_lang",lang);applyLang()});
+
+/* ---------- results ---------- */
+const VCLS={safe:"LOW",suspicious:"MEDIUM",malicious:"HIGH",unverified:"MEDIUM"};
+const defang=s=>String(s||"").replace(/^http/i,"hxxp").replace(/\./g,"[.]");
+function blockBanner(d){
+ const b=el("div","blk");b.append(el("b","",t("blk_title")),el("p","mu",t("blk_text")));
+ const a=d.alert||{};
+ if(a.state==="needs_tap"&&/^https:\/\/wa\.me\//.test(a.wa_link||"")){const l=el("a","btn wa",t("wa_send"));l.href=a.wa_link;l.target="_blank";l.rel="noopener noreferrer";b.append(l)}
+ else if(a.state==="sending")b.append(el("p","mu",t("al_sending")));
+ else if(a.state==="recent")b.append(el("p","mu",t("al_recent")));
+ else b.append(el("p","mu",t("al_off")));
+ return b}
+function findingText(f){
+ const base=t("f_"+f.c);
+ return f.d&&f.c!=="link"?base+" "+f.d:base}
+function renderResult(id,d){
+ const box=$("#"+id);box.className="res show";box.replaceChildren();
+ const top=el("div");top.append(el("span","badge "+d.risk,t("R_"+d.risk)),el("span","mu"," "+t("score")+" "+d.score+"/100 · "+t("st_"+d.status)));
+ if(d.verdict){const vb=el("div");vb.style.margin="0 0 10px";vb.append(el("span","badge "+VCLS[d.verdict],t("v_"+d.verdict)));box.append(vb)}
+ box.append(top);
+ if(d.verdict==="unverified")box.append(el("p","mu",t("v_note_unverified")));
+ if(d.risk==="HIGH")box.append(blockBanner(d));
+ if(d.scan_type==="qr"||d.scan_type==="url"){
+  box.append(el("p","u mu",d.risk==="HIGH"?defang(d.subject):d.subject));
+  if(d.risk!=="HIGH"&&/^https?:\/\//i.test(d.subject)){const ob=el("button","btn sm",t("open_link"));ob.type="button";ob.onclick=()=>{if(d.risk==="MEDIUM"&&!confirm(t("open_warn")))return;window.open(d.subject,"_blank","noopener,noreferrer")};box.append(ob)}}
+ else if(d.scan_type==="screenshot")box.append(el("p","u mu",d.subject));
+ if(d.scan_type==="email")box.append(el("p","mu",t("email_note")));
+ if(d.links_checked!==undefined)box.append(el("p","mu",t("links")+": "+d.links_checked));
+ box.append(el("b","",t("why")));
+ const ul=el("ul");
+ d.findings.forEach(f=>{const li=el("li","u");li.textContent=f.c==="link"?t("f_link")+" "+(d.risk==="HIGH"?defang(f.d):f.d):findingText(f);ul.append(li)});
+ box.append(ul,el("p","mu",t("dc_"+d.status)));
+ if(d.extracted_text){const dt=el("details"),pre=el("pre","u mu",d.extracted_text);pre.style.whiteSpace="pre-wrap";dt.append(el("summary","mu",t("i_extracted")),pre);box.append(dt)}}
+function showResult(id,d){shown[id]=d;renderResult(id,d)}
+async function runScan(btn,sp,boxId,path,body){
+ if(btn)btn.disabled=true;sp.classList.add("on");
+ try{const d=await api(path,{method:"POST",body:JSON.stringify(body)});showResult(boxId,d);toast(t("saved"),true);refreshData();return d}
+ catch(e){toast(errMsg(e));shown[boxId]=null;$("#"+boxId).className="res"}
+ finally{sp.classList.remove("on");if(btn)btn.disabled=false}}
+$("#urlBtn").onclick=()=>runScan($("#urlBtn"),$("#urlSp"),"urlRes","/check",{url:$("#urlIn").value});
+$("#urlIn").onkeydown=e=>{if(e.key==="Enter")$("#urlBtn").click()};
+$("#msgBtn").onclick=()=>runScan($("#msgBtn"),$("#msgSp"),"msgRes","/analyze-message",{text:$("#msgIn").value,type:$("#msgType").value,save_content:$("#msgSave").checked});
+
+/* ---------- QR / image (decoded by your Flask backend with OpenCV, no CDN) ---------- */
+let lastImg="",imgFile=null;
+async function decodeBlob(blob){
+ let r;try{r=await fetch(API+"/decode-qr",{method:"POST",headers:{"Content-Type":"application/octet-stream"},body:blob})}catch(_){const x=new Error(t("err_net"));x.code="net";throw x}
+ if(r.status===422)return null;
+ if(r.status===404)throw new Error(t("err_no_route"));
+ let d={};try{d=await r.json()}catch(_){}
+ if(!r.ok){const m={bad_image:"err_img",no_decoder:"err_no_decoder"}[d.code];throw new Error(m?t(m):(d.error||t("err_server")))}
+ return d.text||null}
+const toBlob=c=>new Promise((ok,no)=>c.toBlob(b=>b?ok(b):no(new Error(t("err_img"))),"image/jpeg",.92));
+function fileToBlob(f){return new Promise((ok,no)=>{
+ const im=new Image(),u=URL.createObjectURL(f);
+ im.onerror=()=>{URL.revokeObjectURL(u);no(new Error(t("err_img")))};
+ im.onload=async()=>{try{
+  const s=Math.min(1,1600/Math.max(im.width,im.height)),c=document.createElement("canvas"),x=c.getContext("2d");
+  c.width=Math.max(1,Math.round(im.width*s));c.height=Math.max(1,Math.round(im.height*s));
+  x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);
+  URL.revokeObjectURL(u);ok({blob:await toBlob(c),w:im.width,h:im.height})}catch(e){no(e)}};
+ im.src=u})}
+const isLink=s=>/^(https?:\/\/|www\.)/i.test(s)||/^[\w-]+(\.[\w-]+)+(\/\S*)?$/.test(s);
+async function handleQR(txt,box,sp){
+ if(!isLink(txt)){toast(t("err_qr_text")+" "+txt.slice(0,120));return}
+ if(box==="urlRes")$("#urlIn").value=txt;
+ await runScan(null,sp,box,"/check",{url:txt,source:"qr"})}
+async function inspectFile(f){
+ let r;try{r=await fetch(API+"/inspect-image",{method:"POST",headers:{"Content-Type":"application/octet-stream"},body:f})}catch(_){const x=new Error(t("err_net"));x.code="net";throw x}
+ if(r.status===404)throw new Error(t("err_no_inspect"));
+ let d={};try{d=await r.json()}catch(_){}
+ if(!r.ok){const x=new Error(d.error||t("err_server"));x.code=d.code;throw x}
+ return d}
+async function fromFile(f,box,sp){
+ if(!f)return;sp.classList.add("on");
+ try{
+  if(box==="imgRes"){
+   lastImg=f.name+" ("+Math.round(f.size/1024)+" KB)";$("#imgInfo").textContent=t("i_info")+": "+lastImg;
+   const d=await inspectFile(f);showResult("imgRes",d);toast(t("saved"),true);refreshData();
+   if(d.ocr&&I18N.en["err_"+d.ocr])toast(t("err_"+d.ocr));
+   return}
+  const r=await fileToBlob(f);
+  const q=await decodeBlob(r.blob);
+  if(!q){toast(t("err_qr_none"));return}
+  await handleQR(q,box,sp)}
+ catch(e){toast(errMsg(e));if(box==="imgRes"){shown.imgRes=null;$("#imgRes").className="res"}}
+ finally{sp.classList.remove("on")}}
+$("#qrIn").onchange=e=>{const f=e.target.files[0];e.target.value="";fromFile(f,"urlRes",$("#qrSp"))};
+$("#imgIn").onchange=e=>{
+ const f=e.target.files[0];e.target.value="";if(!f)return;
+ imgFile=f;const pv=$("#pv");pv.src=URL.createObjectURL(f);pv.style.display="block";
+ $("#imgRes").className="res";shown.imgRes=null;
+ fromFile(f,"imgRes",$("#imgSp"))};
+$("#imgScanBtn").onclick=()=>{if(!imgFile)return toast(t("err_no_img"));$("#imgRes").className="res";shown.imgRes=null;fromFile(imgFile,"imgRes",$("#imgSp"))};
+
+/* ---------- camera QR scan ---------- */
+let camStream=null,camRaf=0;
+function stopCam(){
+ cancelAnimationFrame(camRaf);camRaf=0;
+ if(camStream){camStream.getTracks().forEach(tk=>tk.stop());camStream=null}
+ const v=$("#camV");if(v){v.pause();v.srcObject=null}
+ $("#camBox").classList.remove("on");$("#camBtn").disabled=false}
+function camErr(e){
+ const n=e&&e.name;
+ if(n==="NotAllowedError"||n==="SecurityError")return t("err_cam_denied");
+ if(n==="NotFoundError"||n==="OverconstrainedError")return t("err_cam_none");
+ if(n==="NotReadableError"||n==="AbortError")return t("err_cam_busy");
+ return t("err_cam_other")+(n?" ("+n+")":"")}
+async function startCam(){
+ if(camStream)return;
+ if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)return toast(t("err_cam_unsupported"));
+ $("#camBtn").disabled=true;
+ try{camStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:"environment"}},audio:false})}
+ catch(e){$("#camBtn").disabled=false;return toast(camErr(e))}
+ const v=$("#camV");v.srcObject=camStream;
+ try{await v.play()}catch(_){}
+ $("#camBox").classList.add("on");$("#camMsg").textContent=t("cam_hint");
+ const c=document.createElement("canvas"),x=c.getContext("2d");let last=0,busy=false;
+ const tick=async ts=>{
+  if(!camStream)return;
+  if(!busy&&v.videoWidth&&ts-last>600){
+   last=ts;busy=true;
+   try{const s=Math.min(1,960/v.videoWidth);c.width=Math.round(v.videoWidth*s);c.height=Math.round(v.videoHeight*s);x.drawImage(v,0,0,c.width,c.height);
+    const q=await decodeBlob(await toBlob(c));
+    if(q&&camStream){stopCam();handleQR(q,"urlRes",$("#qrSp"));return}}
+   catch(e){stopCam();toast(errMsg(e));return}
+   finally{busy=false}}
+  if(camStream)camRaf=requestAnimationFrame(tick)};
+ camRaf=requestAnimationFrame(tick)}
+$("#camBtn").onclick=startCam;$("#camStop").onclick=stopCam;
+window.addEventListener("pagehide",stopCam);
+
+/* ---------- dashboard ---------- */
+async function loadDash(){try{dashData=await api("/dashboard");healthData=await api("/health");renderDash()}catch(e){toast(errMsg(e))}}
+function renderDash(){
+ const s=$("#dStats");s.replaceChildren();
+ if(!dashData)return;
+ [["total","s-t",dashData.total],["high","s-hi",dashData.high],["med","s-me",dashData.medium],["low","s-lo",dashData.low]].forEach(([k,c,v])=>{
+  const d=el("div","card hv stat "+c);d.append(el("span","",t(k)),el("b","",v));s.append(d)});
+ const bars=$("#dBars");bars.replaceChildren();
+ const mx=Math.max(1,...Object.values(dashData.by_type));
+ Object.entries(dashData.by_type).forEach(([k,v])=>{const r=el("div","bar"),i=el("i");i.style.width=(v/mx*100)+"%";r.append(el("span","",t("type_"+k)),i,el("span","",v));bars.append(r)});
+ const st=$("#dStatus");st.replaceChildren();
+ if(healthData){[t("srv_ok"),healthData.safe_browsing_configured?t("sb_on"):t("sb_off"),t("gm")].forEach(x=>st.append(el("p","mu","● "+x)))}
+ if(tipsData.length){const tp=tipsData[0];$("#dTip").textContent=tp.icon+" "+tp[lang][0]+": "+tp[lang][1]}}
+
+/* ---------- history ---------- */
+async function loadHist(){try{histData=await api("/history");renderHist()}catch(e){toast(errMsg(e))}}
+function renderHist(){
+ const b=$("#hBody");b.replaceChildren();
+ if(!histData.length){const tr=el("tr"),td=el("td","mu",t("empty"));td.colSpan=5;tr.append(td);b.append(tr);return}
+ histData.forEach(r=>{
+  const tr=el("tr");
+  const d=new Date(r.created_at);
+  tr.append(el("td","",isNaN(d)?r.created_at:d.toLocaleString(lang==="hi"?"hi-IN":undefined)),el("td","",t("type_"+r.scan_type)),el("td","u",(r.scan_type==="url"||r.scan_type==="qr")&&r.risk==="HIGH"?defang(r.subject):(r.subject||"")));
+  const rk=el("td");rk.append(el("span","badge "+r.risk,t("R_"+r.risk)));tr.append(rk);
+  const ac=el("td"),bt=el("button","btn sm red",t("del"));
+  bt.onclick=async()=>{try{await api("/history/"+r.id,{method:"DELETE"});toast(t("deleted"),true);refreshData()}catch(e){toast(errMsg(e))}};
+  ac.append(bt);tr.append(ac);b.append(tr)})}
+$("#hRef").onclick=loadHist;
+$("#hAll").onclick=async()=>{if(!confirm(t("confirm_all")))return;try{await api("/history",{method:"DELETE"});toast(t("cleared"),true);refreshData()}catch(e){toast(errMsg(e))}};
+function refreshData(){loadHist();loadDash()}
+
+/* ---------- caretaker alerts ---------- */
+function toggleKey(){$("#cKeyBox").style.display=$("#cProv").value==="callmebot"?"block":"none"}
+$("#cProv").onchange=toggleKey;
+function fillCare(s){
+ $("#cEnabled").checked=s.enabled;$("#cConsent").checked=s.consent;$("#cUser").value=s.user_name||"";$("#cName").value=s.caretaker_name||"";
+ $("#cPhone").value=s.caretaker_phone||"";$("#cLang").value=s.language||"en";$("#cProv").value=s.provider||"link";
+ $("#cKey").value="";$("#cKey").placeholder=s.callmebot_apikey_set?"•••••• (saved)":"";toggleKey()}
+async function loadCare(){
+ try{fillCare(await api("/settings"));renderAlerts(await api("/alerts"))}catch(e){toast(errMsg(e))}}
+function renderAlerts(rows){
+ const b=$("#aBody");b.replaceChildren();
+ if(!rows.length){const tr=el("tr"),td=el("td","mu",t("empty"));td.colSpan=4;tr.append(td);b.append(tr);return}
+ rows.forEach(r=>{const tr=el("tr"),d=new Date(r.created_at);
+  tr.append(el("td","",isNaN(d)?r.created_at:d.toLocaleString(lang==="hi"?"hi-IN":undefined)),el("td","",t("type_"+r.kind)),el("td","",t("as_"+r.status)),el("td","u",r.detail||""));b.append(tr)})}
+$("#cSave").onclick=async()=>{
+ const body={enabled:$("#cEnabled").checked,consent:$("#cConsent").checked,user_name:$("#cUser").value,caretaker_name:$("#cName").value,
+  caretaker_phone:$("#cPhone").value,language:$("#cLang").value,provider:$("#cProv").value,callmebot_apikey:$("#cKey").value};
+ try{fillCare(await api("/settings",{method:"POST",body:JSON.stringify(body)}));toast(t("c_saved"),true)}catch(e){toast(errMsg(e))}};
+$("#cTest").onclick=async()=>{
+ const box=$("#cRes");
+ try{const d=await api("/test-alert",{method:"POST",body:"{}"});
+  box.className="res show";box.replaceChildren(el("p","mu",t("al_"+d.state)));
+  if(d.state==="needs_tap"&&/^https:\/\/wa\.me\//.test(d.wa_link||"")){const l=el("a","btn wa",t("wa_send"));l.href=d.wa_link;l.target="_blank";l.rel="noopener noreferrer";box.append(l)}
+  setTimeout(async()=>{try{renderAlerts(await api("/alerts"))}catch(_){}},2500);renderAlerts(await api("/alerts"))}
+ catch(e){toast(errMsg(e))}};
+$("#aRef").onclick=loadCare;
+
+/* ---------- tips ---------- */
+async function loadTips(){try{tipsData=await api("/safety-tips");renderTips();renderDash()}catch(e){toast(errMsg(e))}}
+function renderTips(){
+ const g=$("#tipGrid");g.replaceChildren();
+ tipsData.forEach(tp=>{const c=el("div","card hv tip");c.append(el("div","ic",tp.icon),el("h3","",tp[lang][0]),el("p","",tp[lang][1]));g.append(c)})}
+
+/* ---------- init ---------- */
+applyLang();show("home");loadTips();loadHist();
+</script>
+</body>
+</html>
